@@ -2,6 +2,13 @@ import React, { useState, useEffect} from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 
+const userSchema = yup.object().shape({
+    name: yup.string().required("Please input your name"),
+    email: yup.string().email("Please input a valid email address").required("Please input your email"),
+    password: yup.string().required("Please enter your password"),
+    terms: yup.boolean().oneOf([true], "Please read and accept the terms")
+});
+
 const UserForm = () => {
 
     const [userState, setUserState] = useState({
