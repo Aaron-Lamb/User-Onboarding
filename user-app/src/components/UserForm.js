@@ -19,8 +19,20 @@ const UserForm = () => {
         });
     }
 
+    const userSubmit = (event) => {
+        event.preventDefault();
+        console.log(userState);
+        setUserState({
+            name: '',
+            email: '',
+            password: '',
+            terms: false
+
+        })
+    }
+
     return(
-        <form>
+        <form onSubmit={userSubmit}>
             <label>
                 Name: 
                 <input type='text' name='name' id='name' value={userState.name} onChange={userChange} />
