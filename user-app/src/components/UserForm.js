@@ -25,6 +25,24 @@ const UserForm = () => {
         terms: ''
     })
 
+    const validateUser = event => {
+        let value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+        yup.reach(userSchema, event.target.name)
+        .validate(value)
+        .then(valid => {
+            setUserError({
+                ...userError,
+                [event.target.name]: ''
+            });
+        })
+        .catch(error => {
+            setUserError({
+                ...userError,
+                [event.target.name]: error.errors[0]
+            });
+        });
+    }
+
     const userChange = (event) => {
         let value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
         setUserState({
