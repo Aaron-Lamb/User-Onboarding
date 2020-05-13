@@ -18,6 +18,13 @@ const UserForm = () => {
         terms: false
     })
 
+    const [userError, setUserError] = useState({
+        name: '',
+        email: '',
+        password: '',
+        terms: ''
+    })
+
     const userChange = (event) => {
         let value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
         setUserState({
