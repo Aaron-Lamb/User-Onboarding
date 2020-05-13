@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
+import '../App.css'
 
 const userSchema = yup.object().shape({
     name: yup.string().required("Please input your name"),
@@ -44,6 +45,8 @@ const UserForm = () => {
     }
 
     const userChange = (event) => {
+        event.persist();
+        validateUser(event);
         let value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
         setUserState({
             ...userState,
@@ -68,6 +71,10 @@ const UserForm = () => {
             <label>
                 Name: 
                 <input type='text' name='name' id='name' value={userState.name} onChange={userChange} />
+                {userError.name.length > 0 ? (
+                    <p className='error'>{userError.name}</p>
+                ) : null
+                }
             </label>
             <label>
                 Email: 
