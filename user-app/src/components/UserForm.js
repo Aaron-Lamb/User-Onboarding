@@ -12,6 +12,8 @@ const userSchema = yup.object().shape({
 
 const UserForm = () => {
 
+    const [users, setUsers] = useState([])
+
     const [userState, setUserState] = useState({
         name: '',
         email: '',
@@ -58,7 +60,10 @@ const UserForm = () => {
         event.preventDefault();
         console.log(userState);
         axios.post('https://reqres.in/api/users', userState)
-        .then(response => console.log(response))
+        .then(response => setUsers([
+            ...users,
+            userState
+        ]))
         .catch(error => console.log(error))
         setUserState({
             name: '',
@@ -68,9 +73,17 @@ const UserForm = () => {
 
         })
     }
-
+        console.log(users);
     return(
-        <form onSubmit={userSubmit}>
+        <div>
+            {users.map(person => {
+                return <div>
+                    <h3>{person.name}</h3>
+                    <h4>{person.email}</h4>
+                </div>
+            })}
+
+            <form onSubmit={userSubmit}>
             <label>
                 Name: 
                 <input type='text' name='name' id='name' value={userState.name} onChange={userChange} />
@@ -105,6 +118,7 @@ const UserForm = () => {
             </label>
             <button type='submit'>Submit User</button>
         </form>
+        </div>
     )
 }
 
