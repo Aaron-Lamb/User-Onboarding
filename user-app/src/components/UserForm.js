@@ -57,6 +57,9 @@ const UserForm = () => {
     const userSubmit = (event) => {
         event.preventDefault();
         console.log(userState);
+        axios.post('https://reqres.in/api/users', userState)
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
         setUserState({
             name: '',
             email: '',
@@ -79,14 +82,26 @@ const UserForm = () => {
             <label>
                 Email: 
                 <input type='email' name='email' id='email' value={userState.email} onChange={userChange} />
+                {userError.email.length > 0 ? (
+                    <p className='error'>{userError.email}</p>
+                ) : null
+                }
             </label>
             <label>
                 Password: 
                 <input type='password' name='password' id='password' value={userState.password} onChange={userChange} />
+                {userError.password.length > 0 ? (
+                    <p className='error'>{userError.password}</p>
+                ) : null
+                }
             </label>
             <label>
                 Do you agree to the terms of service?
                 <input type='checkbox' name='terms' id='terms' checked={userState.terms} onChange={userChange} />
+                {userError.terms.length > 0 ? (
+                    <p className='error'>{userError.terms}</p>
+                ) : null
+                }
             </label>
             <button type='submit'>Submit User</button>
         </form>
