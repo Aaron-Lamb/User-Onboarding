@@ -92,7 +92,7 @@ const UserForm = () => {
                 ) : null
                 }
             </label>
-            <label>
+            <label id='emailLabel'>
                 Email: 
                 <input type='email' name='email' id='email' value={userState.email} onChange={userChange} />
                 {userError.email.length > 0 ? (

@@ -1,7 +1,15 @@
 describe('Testing for the user-onboarding project', () => {
     it('Tests all the inputs', () => {
         cy.visit('http://localhost:3000')
+        .pause()
         cy.get('#name').type('Bill E. Bob').should('have.value', 'Bill E. Bob')
-        cy.get('#email').type('Some').should('contain', 'Please input a valid email address')
+        cy.get('#email').type('Some')
+        cy.get('#emailLabel').contains('Please input a valid email address')
+        cy.get('#email').clear()
+        cy.get('#emailLabel').contains('Please input your email')
+        cy.get('#email').type('Somewhere@sea.com').should('have.value', 'Somewhere@sea.com')
+        cy.get('#password').type('Anawesomepasswordthatnoonewillfigureout').should('have.value', 'Anawesomepasswordthatnoonewillfigureout')
+        cy.get('#terms').check().should('be.checked')
+        cy.get('form').submit()
     })
 })
